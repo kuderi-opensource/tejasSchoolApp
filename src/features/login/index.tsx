@@ -10,23 +10,42 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { withLayout } from '@/template'
+import Dashboard from "../homepage";
+import { any } from "zod"
 
 const Login = () => {
-  const ref = React.useRef<HTMLFormElement | null>(null)
+  const ref = React.useRef<HTMLFormElement | null>(null);
 
-  const handleValidate = () => {
-    if (ref.current?.reportValidity()) {
-      console.log('Form is valid')
-    } else {
-      console.log('Form is invalid')
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") ? true : false;
+      setLoggedIn(isLoggedIn);
     }
+  }, []);
+
+  const handleValidate = (e:any) => {
+    // if (ref.current?.reportValidity()) {
+    //   console.log('Form is valid');
+      // {<Dashboard />}
+    // } else {
+    //   console.log('Form is invalid')
+    // }
+    e.preventDefault();
+    localStorage.setItem("isLoggedIn", "true");
+    setLoggedIn(true);
   }
 
   return (
-    <div className={cn("flex flex-col gap-6 bg-background")} >
+    <div>
+    {isLoggedIn ? (
+      <Dashboard /> // Show Dashboard after login
+    ) : (
+      <div className={cn("items-center flex flex-col gap-6 bg-background")} >
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
@@ -80,6 +99,8 @@ const Login = () => {
         and <a href="#">Privacy Policy</a>.
       </div>
     </div>
+    )}
+  </div>
   )
 }
 
