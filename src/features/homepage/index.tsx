@@ -49,12 +49,12 @@ export default function Dashboard() {
     <div className="flex flex-col lg:flex-row h-screen">
       {/* Sidebar Navigation */}
       <aside className="lg:w-52 w-full bg-sidebar  p-4 px-0 space-y-4">
-        <SidebarItem icon={<MdSpaceDashboard />} label="Dashboard" onClick={() => setActiveTab("dashboard")} active={activeTab === "dashboard"} />
-        <SidebarItem icon={<FaBookOpen />} label="Classes" onClick={() => setActiveTab("classes")} active={activeTab === "classes"} />
-        <SidebarItem   icon={<GiTeacher />} label="Teachers" onClick={() => setActiveTab("teachers")} active={activeTab === "teachers"} />
-        <SidebarItem icon={<PiStudentFill />} label="Students" onClick={() => setActiveTab("students")} active={activeTab === "students"} />
-        <SidebarItem icon={<AiFillSchedule />} label="Timetable" onClick={() => setActiveTab("timetable")} active={activeTab === "timetable"} />
-        <SidebarItem icon={<BsCollectionFill />} label="Question Bank" onClick={() => setActiveTab("questionBank")} active={activeTab === "questionBank"} />
+        <SidebarItem icon={<MdSpaceDashboard className={activeTab === "dashboard" ?'text-primary': ''} />} label="Dashboard" onClick={() => setActiveTab("dashboard")} active={activeTab === "dashboard"} />
+        <SidebarItem icon={<FaBookOpen className={activeTab === "classes" ?'text-primary': ''} />} label="Classes" onClick={() => setActiveTab("classes")} active={activeTab === "classes"} />
+        <SidebarItem   icon={<GiTeacher className={activeTab === "teachers" ?'text-primary': ''} />} label="Teachers" onClick={() => setActiveTab("teachers")} active={activeTab === "teachers"} />
+        <SidebarItem icon={<PiStudentFill className={activeTab === "students" ?'text-primary': ''} />} label="Students" onClick={() => setActiveTab("students")} active={activeTab === "students"} />
+        <SidebarItem icon={<AiFillSchedule className={activeTab === "timetable" ?'text-primary': ''} />} label="Timetable" onClick={() => setActiveTab("timetable")} active={activeTab === "timetable"} />
+        <SidebarItem icon={<BsCollectionFill className={activeTab === "questionBank" ?'text-primary': ''} />} label="Question Bank" onClick={() => setActiveTab("questionBank")} active={activeTab === "questionBank"} />
       </aside>
 
       {/* Main Content */}
@@ -87,7 +87,7 @@ function SidebarItem({ label, onClick, active, icon }) {
       onClick={onClick}
     >
       {icon}
-      <span>{label}</span>
+      <span className={active? 'text-primary': ''}>{label}</span>
     </div>
   );
 }
