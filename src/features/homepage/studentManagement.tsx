@@ -82,7 +82,7 @@ export default function StudentsManagement() {
   };
 
   return (
-    <div className="p-4 bg-white shadow rounded">
+    <div className="p-4 bg-white rounded">
       <div className="flex justify-between items-center">
       <h2 className="text-xl font-semibold">Students</h2>
       <Button
