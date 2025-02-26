@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 import { useState } from "react";
 
 const teachers = [
@@ -90,14 +92,16 @@ export default function TeachersManagement() {
   };
 
   return (
-    <div className="p-4 bg-white shadow rounded">
-      <h2 className="text-xl font-bold">Teachers</h2>
-      <button
+    <div className="p-4 bg-white  rounded">
+      <div className="flex justify-between items-center">
+      <h2 className="text-xl font-semibold">Teachers</h2>
+      <Button
         className="mt-4 p-2 bg-blue-500 text-white rounded"
         onClick={handleAddTeacher}
       >
         Add Teacher
-      </button>
+      </Button>
+      </div>
       <div className="mt-4 overflow-x-auto">
         <table className="table-auto w-full">
           <thead>
@@ -106,7 +110,7 @@ export default function TeachersManagement() {
               <th className="border p-2">School</th>
               <th className="border p-2">Assigned Subjects</th>
               <th className="border p-2">Assigned Classes (Timetable)</th>
-              <th className="border p-2 text-right">Actions</th>
+              <th className="border p-2 ">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -128,13 +132,14 @@ export default function TeachersManagement() {
                     </p>
                   ))}
                 </td>
-                <td className="border p-2 text-right">
-                  <button
+                <td className="border p-2 text-center">
+                  <Button
                     onClick={() => handleEdit(teacher)}
-                    className="mt-2 p-2 bg-green-500 text-white rounded"
+                    // className="mt-2 p-2 "
+                    variant='secondary'
                   >
                     Edit
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -152,9 +157,9 @@ export default function TeachersManagement() {
               </h3>
               <button
                 onClick={handleClose}
-                className="p-2 bg-red-500 text-white rounded-full"
+                // className="p-2 bg-red-500 text-white rounded-full"
               >
-                X
+                <X />
               </button>
             </div>
             <div className="mt-4 space-y-4">
@@ -202,12 +207,13 @@ export default function TeachersManagement() {
                     />
                   </div>
                 ))}
-                <button
+                <Button
                   onClick={handleAddAssignedSubject}
-                  className="mt-2 p-2 bg-blue-500 text-white rounded"
+                  variant={'outline'}
+                  // className="mt-2 p-2 bg-blue-500 text-white rounded"
                 >
                   Add Assigned Subject
-                </button>
+                </Button>
               </div>
               <div>
                 <label className="block">Assigned Classes (Timetable):</label>
@@ -239,12 +245,14 @@ export default function TeachersManagement() {
                     />
                   </div>
                 ))}
-                <button
+                <Button
                   onClick={handleAddAssignedClass}
-                  className="mt-2 p-2 bg-blue-500 text-white rounded"
+                  // className="mt-2 p-2 bg-blue-500 text-white rounded"
+                  variant={'outline'}
+
                 >
                   Add Assigned Class
-                </button>
+                </Button>
               </div>
               <button
                 onClick={handleSave}

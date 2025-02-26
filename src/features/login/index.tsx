@@ -6,15 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import React, { useEffect, useState } from 'react'
 
 import { Button } from "@/components/ui/button"
+import Dashboard from "../homepage";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import React, { useEffect, useState } from 'react'
+import { any } from "zod"
 import { cn } from '@/lib/utils'
 import { withLayout } from '@/template'
-import Dashboard from "../homepage";
-import { any } from "zod"
 
 const Login = () => {
   const ref = React.useRef<HTMLFormElement | null>(null);
@@ -46,7 +46,7 @@ const Login = () => {
       <Dashboard /> // Show Dashboard after login
     ) : (
       <div className={cn("items-center flex flex-col gap-6 bg-background")} >
-      <Card>
+      <Card className="w-1/4 min-w-[250px]">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>
@@ -71,12 +71,12 @@ const Login = () => {
                 <div className="grid gap-2">
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
-                    <a
+                    {/* <a
                       href="#"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
                     >
                       Forgot your password?
-                    </a>
+                    </a> */}
                   </div>
                   <Input
                     id="password"
@@ -104,4 +104,4 @@ const Login = () => {
   )
 }
 
-export default withLayout(Login)
+export default (Login)

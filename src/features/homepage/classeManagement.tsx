@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { X } from "lucide-react";
 import { useState } from "react";
 
 // Dummy data for schools
@@ -82,41 +85,48 @@ export default function ClassesManagement() {
   };
 
   return (
-    <div className="p-4 bg-white shadow rounded">
-      <h2 className="text-xl font-bold">Classes</h2>
-      <button
+    <div className="p-4 bg-white rounded">
+      <div className="flex justify-between items-center">
+      <h2 className="text-xl font-semibold">Classes</h2>
+      <Button
         onClick={handleCreate}
         className="mt-4 p-2 bg-blue-500 text-white rounded"
       >
         Create Class
-      </button>
+      </Button>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         {classes.map((cls) => (
-          <div key={cls.id} className="p-4 border rounded shadow">
+          <Card key={cls.id}>
+          <div  className="p-4 rounded">
             <h3 className="text-lg font-semibold">{cls.name}</h3>
             <p>School: {schools.find((school) => school.id === cls.schoolId)?.name}</p>
             <p>Room Size: {cls.roomSize}</p>
-            <button
+            <Button
+              variant='secondary'
               onClick={() => handleEdit(cls)}
-              className="mt-2 p-2 bg-green-500 text-white rounded"
+              className="mt-2 p-2 "
             >
               Edit
-            </button>
+            </Button>
           </div>
+          </Card>
         ))}
       </div>
 
       {/* Create/Edit Form Modal */}
       {(isCreating || isEditing) && (
         <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
+          <Card><div className="bg-white p-6 rounded w-96">
+            <div className="flex justify-between items-center">
             <h3 className="text-lg font-semibold">{isCreating ? "Create Class" : "Edit Class"}</h3>
             <button
               onClick={() => { setIsCreating(false); setIsEditing(false); }}
-              className="p-2 bg-red-500 text-white rounded-full"
+              // className="p-2 bg-red-500 text-white rounded-full"
             >
-              X
+              <X />
             </button>
+            </div>
             <div className="mt-4 space-y-4">
               <div>
                 <label className="block">Class Name:</label>
@@ -163,7 +173,7 @@ export default function ClassesManagement() {
                 {isCreating ? "Create Class" : "Save Changes"}
               </button>
             </div>
-          </div>
+          </div></Card>
         </div>
       )}
     </div>

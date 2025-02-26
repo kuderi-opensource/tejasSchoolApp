@@ -1,8 +1,16 @@
-import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect, useState } from "react";
+
+import { AiFillSchedule } from "react-icons/ai";
+import { BsCollectionFill } from "react-icons/bs";
+import ClassesManagement from "./classeManagement";
+import { FaBookOpen } from "react-icons/fa6";
+import { GiTeacher } from "react-icons/gi";
+import { MdSpaceDashboard } from "react-icons/md";
+import { PiStudentFill } from "react-icons/pi";
 import StudentsManagement from "./studentManagement";
 import TeachersManagement from "./teacherManagement";
 import TimetableManagement from "./timeTableManagement";
-import ClassesManagement from "./classeManagement";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -40,13 +48,13 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col lg:flex-row h-screen">
       {/* Sidebar Navigation */}
-      <aside className="lg:w-64 w-full bg-gray-800 text-white p-4 space-y-4">
-        <SidebarItem label="Dashboard" onClick={() => setActiveTab("dashboard")} active={activeTab === "dashboard"} />
-        <SidebarItem label="Classes" onClick={() => setActiveTab("classes")} active={activeTab === "classes"} />
-        <SidebarItem label="Teachers" onClick={() => setActiveTab("teachers")} active={activeTab === "teachers"} />
-        <SidebarItem label="Students" onClick={() => setActiveTab("students")} active={activeTab === "students"} />
-        <SidebarItem label="Timetable" onClick={() => setActiveTab("timetable")} active={activeTab === "timetable"} />
-        <SidebarItem label="Question Bank" onClick={() => setActiveTab("questionBank")} active={activeTab === "questionBank"} />
+      <aside className="lg:w-52 w-full bg-sidebar  p-4 px-0 space-y-4">
+        <SidebarItem icon={<MdSpaceDashboard />} label="Dashboard" onClick={() => setActiveTab("dashboard")} active={activeTab === "dashboard"} />
+        <SidebarItem icon={<FaBookOpen />} label="Classes" onClick={() => setActiveTab("classes")} active={activeTab === "classes"} />
+        <SidebarItem   icon={<GiTeacher />} label="Teachers" onClick={() => setActiveTab("teachers")} active={activeTab === "teachers"} />
+        <SidebarItem icon={<PiStudentFill />} label="Students" onClick={() => setActiveTab("students")} active={activeTab === "students"} />
+        <SidebarItem icon={<AiFillSchedule />} label="Timetable" onClick={() => setActiveTab("timetable")} active={activeTab === "timetable"} />
+        <SidebarItem icon={<BsCollectionFill />} label="Question Bank" onClick={() => setActiveTab("questionBank")} active={activeTab === "questionBank"} />
       </aside>
 
       {/* Main Content */}
@@ -72,12 +80,13 @@ export default function Dashboard() {
   );
 }
 
-function SidebarItem({ label, onClick, active }) {
+function SidebarItem({ label, onClick, active, icon }) {
   return (
     <div
-      className={`flex items-center space-x-2 p-3 rounded cursor-pointer ${active ? "bg-gray-700" : "hover:bg-gray-600"}`}
+      className={`flex items-center space-x-2 p-3 rounded cursor-pointer  ${active ? " bg-muted" : "hover:bg-sidebar-accent text-sidebar-primary"}`}
       onClick={onClick}
     >
+      {icon}
       <span>{label}</span>
     </div>
   );
@@ -85,9 +94,35 @@ function SidebarItem({ label, onClick, active }) {
 
 function DashboardOverview() {
   return (
-    <div className="p-4 bg-white shadow rounded">
-      <h2 className="text-xl font-bold">Admin Dashboard</h2>
-      <p>Total Classes: 11 | Teachers: 7 | Students: 85</p>
+    <div className="p-4 rounded">
+      <h2 className="text-xl font-semibold mb-6">Admin Dashboard</h2>
+      {/* <p>Total Classes: 11 | Teachers: 7 | Students: 85</p> */}
+      <div className="flex gap-4 flex-wrap">
+      <Card className="w-1/4 py-8">
+      <CardHeader className="pt-0">
+        <CardContent className="text-center">Total Classes</CardContent>
+      </CardHeader>
+        <CardTitle className="text-center">
+          11
+        </CardTitle>
+      </Card>
+      <Card className="w-1/4 py-8">
+      <CardHeader className="pt-0">
+        <CardContent className="text-center">Teachers</CardContent>
+      </CardHeader>
+        <CardTitle className="text-center">
+          7
+        </CardTitle>
+      </Card>
+      <Card className="w-1/4 py-8">
+      <CardHeader className="pt-0">
+        <CardContent className="text-center">Students</CardContent>
+      </CardHeader>
+        <CardTitle className="text-center">
+          30
+        </CardTitle>
+      </Card>
+      </div>
     </div>
   );
 }
@@ -95,7 +130,7 @@ function DashboardOverview() {
 function QuestionBankManagement() {
   return (
     <div className="p-4 bg-white shadow rounded">
-      <h2 className="text-xl font-bold">Question Bank</h2>
+      <h2 className="text-xl font-semibold">Question Bank</h2>
       <p>Manage question banks here.</p>
     </div>
   );

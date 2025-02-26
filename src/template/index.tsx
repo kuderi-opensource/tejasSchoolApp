@@ -12,9 +12,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <SidebarProvider>
       <div className="flex h-full min-h-screen w-full bg-background">
-        {/* <AppSidebar /> */}
+        <AppSidebar />
         <div className="flex w-full flex-1 flex-col">
-          {/* <Header /> */}
+          <Header />
           <main className="flex flex-1 flex-col justify-center overflow-auto">{children}</main>
         </div>
       </div>

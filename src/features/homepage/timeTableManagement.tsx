@@ -56,8 +56,8 @@ const TimetableManagement = ({
     }));
 
   return (
-    <div className="p-6 bg-white shadow rounded w-full">
-      <h2 className="text-xl font-bold">Timetable</h2>
+    <div className="p-6 bg-white rounded w-full">
+      <h2 className="text-xl font-semibold">Timetable</h2>
       <div className="mt-4 flex space-x-4">
         {/* Date Picker for selecting exact date */}
         <div>
@@ -117,14 +117,14 @@ const TimetableManagement = ({
                   .filter((entry) => entry.time === selectedTimeSlot) // Only show selected time period
                   .map((entry) => (
                     <div key={entry.time} className="p-3 bg-white border rounded shadow text-center">
-                      <p className="font-bold">{entry.time}</p>
+                      <p className="font-semibold">{entry.time}</p>
                       <p>{`${entry.subject} - ${entry.teacher}`}</p>
                     </div>
                   ))
               : allTimeSlots
                   .map((slot) => (
                     <div key={slot} className="p-3 bg-white border rounded shadow text-center">
-                      <p className="font-bold">{slot}</p>
+                      <p className="font-semibold">{slot}</p>
                       <p>
                         {["11:00 AM - 11:15 AM (Break)", "1:15 PM - 2:15 PM (Lunch)"].includes(slot)
                             ? "" // Empty string to avoid displaying anything for break and lunch time

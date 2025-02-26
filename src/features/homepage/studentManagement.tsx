@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 import { useState } from "react";
 
 const teachers = [
@@ -81,13 +83,15 @@ export default function StudentsManagement() {
 
   return (
     <div className="p-4 bg-white shadow rounded">
-      <h2 className="text-xl font-bold">Students</h2>
-      <button
+      <div className="flex justify-between items-center">
+      <h2 className="text-xl font-semibold">Students</h2>
+      <Button
         onClick={handleCreate}
         className="mt-4 p-2 bg-blue-500 text-white rounded"
       >
-        Create Student
-      </button>
+        Add Student
+      </Button>
+      </div>
 
       {/* Table to Display Students */}
       <table className="mt-4 w-full table-auto">
@@ -109,13 +113,14 @@ export default function StudentsManagement() {
               <td className="border p-2">{student.section}</td>
               <td className="border p-2">{student.password}</td>
               <td className="border p-2">{student.school}</td>
-              <td className="border p-2">
-                <button
+              <td className="border p-2 mx-auto text-center">
+                <Button
                   onClick={() => handleEdit(student)}
-                  className="p-2 bg-green-500 text-white rounded"
+                  // className="p-2 bg-green-500 text-white rounded"
+                  variant='secondary'
                 >
                   Edit
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
@@ -132,9 +137,9 @@ export default function StudentsManagement() {
               </h3>
               <button
                 onClick={handleClose}
-                className="p-2 bg-red-500 text-white rounded-full"
+                // className="p-2 bg-red-500 text-white rounded-full"
               >
-                X
+                <X />
               </button>
             </div>
             <div className="mt-4 space-y-4">
