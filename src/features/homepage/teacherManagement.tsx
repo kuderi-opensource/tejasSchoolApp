@@ -3,8 +3,8 @@ import { X } from "lucide-react";
 import { useState } from "react";
 
 const teachers = [
-  { id: 1, name: "Alice Johnson", school: "ABC School", assignedSubjects: [{ subject: "Math", class: "6A" }, { subject: "Science", class: "6B" }], assignedClasses: [{ class: "6A", day: "Monday", time: "9:00 AM - 10:00 AM" }, { class: "6B", day: "Tuesday", time: "10:00 AM - 11:00 AM" }] },
-  { id: 2, name: "Bob Smith", school: "ABC School", assignedSubjects: [{ subject: "Science", class: "6A" }], assignedClasses: [{ class: "6A", day: "Monday", time: "9:00 AM - 10:00 AM" }] },
+  { id: 1, name: "Alice Johnson", school: "Delhi Public School Bengaluru Sout", assignedSubjects: [{ subject: "Math", class: "6A" }, { subject: "Science", class: "6B" }], assignedClasses: [{ class: "6A", day: "Monday", time: "9:00 AM - 10:00 AM" }, { class: "6B", day: "Tuesday", time: "10:00 AM - 11:00 AM" }] },
+  { id: 2, name: "Bob Smith", school: "Delhi Public School Bengaluru Sout", assignedSubjects: [{ subject: "Science", class: "6A" }], assignedClasses: [{ class: "6A", day: "Monday", time: "9:00 AM - 10:00 AM" }] },
 ];
 
 export default function TeachersManagement() {

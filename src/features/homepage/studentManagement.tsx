@@ -8,13 +8,14 @@ const teachers = [
 ];
 
 const students = [
-  { id: 1, name: "Charlie Brown", class: "6A", section: "A", password: "password1", school: "ABC School" },
-  { id: 2, name: "Daisy Adams", class: "6B", section: "B", password: "password2", school: "ABC School" },
+  { id: 1, name: "Charlie Brown", class: "6A", section: "A", password: "password1", school: "Delhi Public School Bengaluru South" },
+  { id: 2, name: "Daisy Adams", class: "6B", section: "B", password: "password2", school: "Delhi Public School Bengaluru South" },
 ];
 
 const classes = [
-  { id: 1, name: "6A", school: "ABC School", size: 30 },
-  { id: 2, name: "6B", school: "ABC School", size: 28 },
+  { id: 1, name: "8", school: "Delhi Public School Bengaluru South", size: 0 },
+  { id: 2, name: "9", school: "Delhi Public School Bengaluru South", size: 0 },
+  { id: 2, name: "10", school: "Delhi Public School Bengaluru South", size: 0 }
 ];
 
 export default function StudentsManagement() {

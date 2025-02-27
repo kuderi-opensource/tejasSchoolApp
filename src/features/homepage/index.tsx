@@ -93,9 +93,11 @@ function SidebarItem({ label, onClick, active, icon }) {
 }
 
 function DashboardOverview() {
+  // School Name:
+  const schoolName = "Delhi Public School Bengaluru South";
   return (
     <div className="p-4 rounded">
-      <h2 className="text-xl font-semibold mb-6">Admin Dashboard</h2>
+      <h2 className="text-xl font-semibold mb-6">{schoolName}</h2>
       {/* <p>Total Classes: 11 | Teachers: 7 | Students: 85</p> */}
       <div className="flex gap-4 flex-wrap">
       <Card className="w-1/4 py-8">

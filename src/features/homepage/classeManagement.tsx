@@ -5,18 +5,19 @@ import { useState } from "react";
 
 // Dummy data for schools
 const schools = [
-  { id: "1", name: "ABC School" },
-  { id: "2", name: "XYZ School" },
+  { id: "1", name: "Delhi Public School Bengaluru South" },
+  { id: "2", name: "Delhi Public School Bengaluru South" },
 ];
 
-// Predefined classes for a specific school (ABC School)
+// Predefined classes for a specific school (Delhi Public School Bengaluru South)
 const predefinedClasses = [
-  { id: "1", name: "Math 101", schoolId: "1", roomSize: 3 },
-  { id: "2", name: "Science 102", schoolId: "1", roomSize: 5 },
+  { id: "1", name: "8", schoolId: "1", roomSize: 2 },
+  { id: "2", name: "9", schoolId: "1", roomSize: 2 },
+  { id: "2", name: "10", schoolId: "1", roomSize: 1 },
 ];
 
 export default function ClassesManagement() {
-  // Assume that the logged-in school ID is "1" (ABC School)
+  // Assume that the logged-in school ID is "1" (Delhi Public School Bengaluru South)
   const loggedInSchoolId = "1"; // Replace this with the actual logged-in school ID
 
   const [classes, setClasses] = useState(predefinedClasses.filter(cls => cls.schoolId === loggedInSchoolId));

@@ -45,7 +45,7 @@ const Login = () => {
     {isLoggedIn ? (
       <Dashboard /> // Show Dashboard after login
     ) : (
-      <div className={cn("items-center flex flex-col gap-6 bg-background")} >
+      <div className={cn("items-center flex flex-col gap-6 bg-background justify-center h-screen")} >
       <Card className="w-1/4 min-w-[250px]">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
