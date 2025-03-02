@@ -8,65 +8,185 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Institution {
+  // Represents an educational institution (e.g., an organization that owns multiple schools)")
+
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model School {
+  // Represents a school under an institution
+
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  institutionId String        @db.ObjectId
+  name          String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Session {
+  // Represents an academic session (e.g., 2024-2025) for a school
+
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId   String   @db.ObjectId
+  name       String   @unique
+  startDate  DateTime
+  endDate    DateTime
+  isActive   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum GradeLevel {
+  GRADE_5
+  GRADE_6
+  GRADE_7
+  GRADE_8
+  GRADE_9
+  GRADE_10
+}
+
+model AcademicClass {
+  // Represents a grade level within a session (e.g., Grade 6)
+
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String     @db.ObjectId
+  grade     GradeLevel // Enum for grade levels
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([sessionId]) // To fetch all classes under a session efficiently
+}
+
+model Section {
+  // Represents a section within a class (e.g., 6A, 6B)
+
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  academicClassId String  @db.ObjectId
+  name           String   // Full section name (e.g., "6A", "6B
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([academicClassId]) // To fetch all sections of a class efficiently
+}
+
+model Subject {
+  // Represents subjects assigned to sections
+
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  sectionId   String   @db.ObjectId  // Subjects belong to sections
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([sectionId]) // To efficiently find subjects for a section
+}
+
+enum UserRole {
+  ADMIN
+  TEACHER
+  STUDENT
+}
+
 model User {
+  // Stores all users: admin, teacher, student
+
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId      String   @db.ObjectId
+  sessionId     String   @db.ObjectId
+  sectionId     String?  @db.ObjectId // Assigned section (only for students & teachers)
+  name          String
+  email         String   @unique
+  passwordHash  String
+  role          UserRole // Enum for user roles
+  parentEmail   String?  // Only for students
+  parentPhone   String?  // Only for students
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([role]) // For role-based queries
+  @@index([schoolId, sessionId]) // To find users in a specific school & session
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}
+
+model Attendance {
+  // Stores daily attendance records for students
+
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId   String   @db.ObjectId
+  sessionId  String   @db.ObjectId
+  sectionId  String   @db.ObjectId
+  studentId  String   @db.ObjectId
+  date       DateTime // Attendance date
+  status     AttendanceStatus // Enum (PRESENT, ABSENT, LATE, EXCUSED)
+  markedBy   String   @db.ObjectId // Teacher or Admin who marked the attendance
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([schoolId, sessionId, sectionId, date]) // Query attendance for a session & section on a date
+  @@index([studentId, date]) // Fetch attendance for a specific student
+}
+
+model Question {
+  // Stores questions for tests
+
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  email        String   @unique
-  passwordHash String
-  name         String
-  role         String
-  class        String
-  section      String?
+  createdBy    String   @db.ObjectId
+  grade        String   // Grade level (e.g., "Grade 6
+  subject      String
+  type         String   // "MCQ", "True/False", etc.
+  questionText String
+  options      String[]
+  correctAnswer String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
 
-model Grade {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  grade     String   @unique
-  subjects  String[]
-}
+model Test {
+  // Represents a scheduled test
 
-model Question {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdBy     String
-  grade         String
+  createdBy     String   @db.ObjectId
+  academicClassId String @db.ObjectId
+  sectionId     String?  @db.ObjectId
   subject       String
-  type          String
-  questionText  String
-  options       String[]
-  correctAnswer String?
+  questionIds   String[]
+  scheduledAt   DateTime
+  timeLimit     Int
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
 
-model Test {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdBy   String
-  grade       String
-  subject     String
-  questions   String[]
-  scheduledAt DateTime
-  timeLimit   Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model Submission {
+  // Records student test submissions
+
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   testId      String   @db.ObjectId
   studentId   String   @db.ObjectId
-  answers     Answer[] @relation("SubmissionToAnswers")
   submittedAt DateTime
   graded      Boolean  @default(false)
-  score       Int      @default(0)
+  score       Int?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model Answer {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  submissionId  String   @db.ObjectId
-  submission    Submission @relation(fields: [submissionId], references: [id], name: "SubmissionToAnswers")
-  questionId    String   @db.ObjectId
-  answer        String
+  // Stores individual answers for test questions
+
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  submissionId String  @db.ObjectId
+  questionId  String   @db.ObjectId
+  answer      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
