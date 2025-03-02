@@ -1,11 +1,12 @@
+import { createTRPCRouter, publicProcedure } from '../trpc';
+
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import prisma from '../prisma';
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 // src/server/routers/user.ts
 import { z } from 'zod';
-import prisma from '../prisma';
-import { createTRPCRouter, publicProcedure } from '../trpc';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 
 const hashPassword = async (password: string) => {
   try {
@@ -21,6 +22,9 @@ const verifyPassword = async (password: string, hash: string) => {
 };
 
 const generateToken = (user: { id: string; email: string }) => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET is not defined');
+  }
   return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
 export const userRouter = createTRPCRouter({
@@ -43,7 +47,7 @@ export const userRouter = createTRPCRouter({
     console.log('qqqqqq')
     const passwordHash = await hashPassword(input.password);
     if(input.password){
-      delete input.password;
+      // delete input.password;
     } 
     return await prisma.user.create({
       data: {
