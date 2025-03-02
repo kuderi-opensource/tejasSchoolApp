@@ -13,16 +13,19 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { any } from "zod"
 import { cn } from '@/lib/utils'
+import { useRouter } from "next/router"
 import { withLayout } from '@/template'
 
 const Login = () => {
+  const router = useRouter()
   const ref = React.useRef<HTMLFormElement | null>(null);
 
 
-  const handleValidate = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleValidate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (ref.current?.reportValidity()) {
       console.log('Form is valid');
       // {<Dashboard />}
+      await router.push('/dashboard')
     } else {
       console.log('Form is invalid')
     }
