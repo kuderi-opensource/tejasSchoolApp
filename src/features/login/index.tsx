@@ -9,43 +9,30 @@ import {
 import React, { useEffect, useState } from 'react'
 
 import { Button } from "@/components/ui/button"
-import Dashboard from "../homepage";
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { any } from "zod"
 import { cn } from '@/lib/utils'
+import { useRouter } from "next/router"
 import { withLayout } from '@/template'
 
 const Login = () => {
+  const router = useRouter()
   const ref = React.useRef<HTMLFormElement | null>(null);
 
-  const [isLoggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") ? true : false;
-      setLoggedIn(isLoggedIn);
-    }
-  }, []);
-
-  const handleValidate = (e:any) => {
-    // if (ref.current?.reportValidity()) {
-    //   console.log('Form is valid');
+  const handleValidate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (ref.current?.reportValidity()) {
+      console.log('Form is valid');
       // {<Dashboard />}
-    // } else {
-    //   console.log('Form is invalid')
-    // }
-    e.preventDefault();
-    localStorage.setItem("isLoggedIn", "true");
-    setLoggedIn(true);
+      await router.push('/dashboard')
+    } else {
+      console.log('Form is invalid')
+    }
   }
 
   return (
-    <div>
-    {isLoggedIn ? (
-      <Dashboard /> // Show Dashboard after login
-    ) : (
-      <div className={cn("items-center flex flex-col gap-6 bg-background justify-center h-screen")} >
+    <div className={cn("items-center justify-center flex flex-1 flex-col gap-6 bg-background")} >
       <Card className="w-1/4 min-w-[250px]">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
@@ -99,8 +86,6 @@ const Login = () => {
         and <a href="#">Privacy Policy</a>.
       </div>
     </div>
-    )}
-  </div>
   )
 }
 

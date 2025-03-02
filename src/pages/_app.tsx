@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div className={cn(GeistSans.className, 'w-full h-full')}>
+    <div className={cn(GeistSans.className, 'flex flex-col flex-1 h-full')}>
       <Component {...pageProps} />
     </div>
   );
